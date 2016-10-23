@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block cssIncludes %}
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/cp2kmanual.css" rel="stylesheet">
+{% endblock %}
+
+{% block jsIncludes %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/cp2kmanual.js"></script>
+{% endblock %}
+
+{% block navbarSections %}
+
+<li><a href="ATOM/ATOM.html">ATOM</a></li>
+<li><a href="DEBUG/DEBUG.html">DEBUG</a></li>
+<li><a href="EXT_RESTART/EXT_RESTART.html">EXT_RESTART</a></li>
+<li><a href="FARMING/FARMING.html">FARMING</a></li>
+<li><a href="FORCE_EVAL/FORCE_EVAL.html">FORCE_EVAL</a></li>
+<li><a href="GLOBAL/GLOBAL.html">GLOBAL</a></li>
+<li><a href="MOTION/MOTION.html">MOTION</a></li>
+<li><a href="MULTIPLE_FORCE_EVALS/MULTIPLE_FORCE_EVALS.html">MULTIPLE_FORCE_EVALS</a></li>
+<li><a href="OPTIMIZE_BASIS/OPTIMIZE_BASIS.html">OPTIMIZE_BASIS</a></li>
+<li><a href="OPTIMIZE_INPUT/OPTIMIZE_INPUT.html">OPTIMIZE_INPUT</a></li>
+<li><a href="SWARM/SWARM.html">SWARM</a></li>
+<li><a href="TEST/TEST.html">TEST</a></li>
+<li><a href="VIBRATIONAL_ANALYSIS/VIBRATIONAL_ANALYSIS.html">VIBRATIONAL_ANALYSIS</a></li>
+
+{% endblock %}
+
+{% block linkLogo %}
+index.html
+{% endblock %}
+
+{% block linkHome %}
+index.html
+{% endblock %}
+
+{% block linkUnits %}
+units.html
+{% endblock %}
+
+{% block linkReferences %}
+references.html
+{% endblock %}
+
+{% block version %}
+<p class="navbar-text navbar-right">{{cp2k_input.version}} (Revision {{cp2k_input.compileRevision}})</p>
+{% endblock %}
+
+{% block mainSidebar %}
+
+<li><a href="#sec-1" >Version information</a></li>
+<li><a href="#sec-2" >Journal papers</a></li>
+<li><a href="#sec-3" >CP2K units</a></li>
+<li><a href="#sec-4" >Internal input preprocessor</a></li>
+
+{% endblock %}
+
+{% block mainContent %}
+
+<h1>CP2K input reference</h1>
+<h2 id="sec-1">Version information</h2>
+<p>
+    This HTML manual refers to
+    {{cp2k_input.version}} (Revision {{cp2k_input.compileRevision}})
+    and was generated automatically from a CP2K executable
+    compiled on {{cp2k_input.compileDate}} using the
+    <code>--xml</code> command line option (see
+    <a href="generate_manual_howto.html">how to generate this manual</a>).
+    Thus the manual describes exactly this version of the code.
+
+</p>
+
+<h2 id="sec-2">Journal papers</h2>
+<p><a href="references.html">List of references</a> cited in the CP2K input manual.
+
+</p>
+<h2 id="sec-3">CP2K units</h2>
+<p><a href="units.html">Available units of measurement</a> which can be used in the CP2K input for keyword values.
+
+</p>
+<h2 id="sec-4">Internal input preprocessor</h2>
+<p>
+    Before the input is parsed, the input is run through a simple internal preprocessor.
+    The preprocessor recognizes the following directives independent of capitalization:
+
+</p>
+<dl>
+    <dt><code>@INCLUDE 'filename.inc'</code></dt>
+    <dd>
+        The file referenced by <i>filename.inc</i> is included into the input file and parsed.
+        Recursive inclusions are not allowed and the files have to exist in the current working
+        directory. There can be only one @INCLUDE statement per line. Single or double quotes
+        have to be used if the filename contains blanks.
+
+    </dd>
+    <dt><code>@SET VAR value</code></dt>
+    <dd>
+        Assigns the text <i>value</i> to the preprocessing variable <i>VAR</i>. <i>value</i>
+        is the text following <i>VAR</i> with the outer whitespace removed. The variable can be
+        recalled with a <i>${VAR}</i> (or <i>$VAR</i>) statement. There can be only one @SET statement per line.
+
+    </dd>
+    <dt><code>${VAR}</code> or <code>$VAR</code></dt>
+    <dd>
+        Expand the variable <i>VAR</i>. The text <i>${VAR}</i> (or <i>$VAR</i>) is replaced
+        with the value assigned to <i>VAR</i> in the last @SET directive.
+        There can be multiple variable statements per line. The expansion process is repeated
+        until no more variables are found.
+
+    </dd>
+    <dt><code>@IF / @ENDIF</code></dt>
+    <dd>
+        Conditional block. The text from the @IF line up to the next line with a valid
+        @ENDIF is skipped, if the expression following @IF resolves to <i>false</i>.
+        Available expressions are lexical comparisons for equality '==' or inequality '/='.
+        If none of the two operators are found, a '0' or whitespace resolves to <i>false</i>
+        while any text resolves to <i>true</i>. @IF/@ENDIF blocks cannot be nested and
+        cannot span across files. There can be only one test (== or /=) per @IF statement.
+
+    </dd>
+</dl>
+
+
+{% endblock %}

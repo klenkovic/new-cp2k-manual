@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block cssIncludes %}
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/cp2kmanual.css" rel="stylesheet">
+{% endblock %}
+
+{% block jsIncludes %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/cp2kmanual.js"></script>
+{% endblock %}
+
+{% block navbarSections %}
+
+<li><a href="ATOM/ATOM.html">ATOM</a></li>
+<li><a href="DEBUG/DEBUG.html">DEBUG</a></li>
+<li><a href="EXT_RESTART/EXT_RESTART.html">EXT_RESTART</a></li>
+<li><a href="FARMING/FARMING.html">FARMING</a></li>
+<li><a href="FORCE_EVAL/FORCE_EVAL.html">FORCE_EVAL</a></li>
+<li><a href="GLOBAL/GLOBAL.html">GLOBAL</a></li>
+<li><a href="MOTION/MOTION.html">MOTION</a></li>
+<li><a href="MULTIPLE_FORCE_EVALS/MULTIPLE_FORCE_EVALS.html">MULTIPLE_FORCE_EVALS</a></li>
+<li><a href="OPTIMIZE_BASIS/OPTIMIZE_BASIS.html">OPTIMIZE_BASIS</a></li>
+<li><a href="OPTIMIZE_INPUT/OPTIMIZE_INPUT.html">OPTIMIZE_INPUT</a></li>
+<li><a href="SWARM/SWARM.html">SWARM</a></li>
+<li><a href="TEST/TEST.html">TEST</a></li>
+<li><a href="VIBRATIONAL_ANALYSIS/VIBRATIONAL_ANALYSIS.html">VIBRATIONAL_ANALYSIS</a></li>
+
+{% endblock %}
+
+{% block linkLogo %}
+index.html
+{% endblock %}
+
+{% block linkHome %}
+index.html
+{% endblock %}
+
+{% block linkUnits %}
+units.html
+{% endblock %}
+
+{% block linkReferences %}
+references.html
+{% endblock %}
+
+{% block version %}
+<p class="navbar-text navbar-right">{{cp2k_input.version}} (Revision {{cp2k_input.compileRevision}})</p>
+{% endblock %}
+
+{% block mainSidebar %}
+
+{% endblock %}
+
+{% block mainContent %}
+
+<h2>How to generate the CP2K input reference manual</h2>
+      <ul>
+         <li>
+            Prepare a CP2K executable. It does not matter which type of CP2K executable (e.g.
+            sopt) you are using.
+
+         </li>
+         <li>
+            Run the CP2K executable with the flag <code>--xml</code> like:
+
+            <ul>
+               <li><code>cp2k.sopt --xml</code></li>
+            </ul>
+            which will generate a file named <code>cp2k_input.xml</code> with a XML dump of the CP2K input
+            structure in the same directory.
+
+         </li>
+         <li>
+            Copy the XML file <code>cp2k_input.xml</code> to <code>cp2k/web/manual/newManual</code>
+         </li>
+
+         <li>
+            Install some Python 2.7 dependencies by executing this command:
+            <ul>
+               <li><code>sudo pip install lxml</code></li>
+               <li><code>sudo pip install Jinja2</code></li>
+            </ul>
+         </li>
+
+         <li>
+            Transform the XML output in <code>cp2k_input.xml</code> to HTML manual using a Python script <code>createManual.py</code>
+            <ul>
+               <li><code>python createManual.py</code></li>
+            </ul>
+         </li>
+         <li>
+            Launch your favorite web browser and load the <code>index.html</code> file generated in the
+            previous step located in <code>build</code> directory.
+
+         </li>
+         <li>
+            Happy browsing!
+         </li>
+      </ul>
+
+
+{% endblock %}

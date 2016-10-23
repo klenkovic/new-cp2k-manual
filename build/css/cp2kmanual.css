@@ -1,0 +1,44 @@
+
+
+body {
+ padding-top:50px;
+}
+
+
+.navbar-bright {
+ background-color:#111155;
+ color:#fff;
+}
+
+.affix-top,.affix{
+ position: static;
+}
+
+@media (min-width: 979px) {
+  #sidebar.affix-top {
+    position: static;
+  	margin-top:30px;
+  	width:228px;
+  }
+
+  #sidebar.affix {
+    position: fixed;
+    top:70px;
+    width:228px;
+  }
+}
+
+#sidebar li.active {
+  border:0 #eee solid;
+  border-right-width:5px;
+}
+
+#sidebar li ul li a {
+    padding-left: 30px;
+}
+
+
+
+.nav>li>ul>li>a {
+    padding: 2px 15px;
+}
